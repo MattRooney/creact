@@ -14,30 +14,12 @@ var Body = React.createClass({
 
   handleDelete(id) {
     $.ajax({
-      url: `/api/v1/skills/${id}`,
+      url: '/api/v1/skills/${id}',
       type: 'DELETE',
       success: () => {
         this.removeIdeaFromDOM(id);
       }
     });
-  },
-
-  handleUpdate(skill) {
-    $.ajax({
-        url: `/api/v1/skills/${skill.id}`,
-        type: 'PUT',
-        data: { skill: skill },
-        success: (skill) => {
-          this.updateSkills(skill);
-        }
-      });
-  },
-
-  updateSkills(skill) {
-    var skills = this.state.skills.filter((s) => { return s.id != skill.id });
-    skills.push(skill);
-
-    this.setState({ skills: skills });
   },
 
   removeIdeaFromDOM(id) {
@@ -47,6 +29,24 @@ var Body = React.createClass({
 
     this.setState({ skills: newSkills });
   },
+
+  handleUpdate(skill) {
+    $.ajax({
+      url: '/api/v1/skills/${skill.id}',
+      type: 'PUT',
+      data: { skill: skill },
+      success: () => {
+        this.updateSkills(skill);
+      }
+    });
+  },
+
+  updateSkills(skill) {
+    var skills = this.state.skills.filter((s) => { return s.id != skill.id });
+      skills.push(skill);
+
+      this.setState({ skills: skills });
+    },
 
   render() {
     return (

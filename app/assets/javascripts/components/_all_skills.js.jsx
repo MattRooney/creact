@@ -7,6 +7,14 @@ var AllSkills = React.createClass({
     this.props.onUpdate(skill);
   },
 
+  componentDidMount() {
+    $.getJSON('/api/v1/skills.json', (response) => { this.setState({ skills: response }) });
+  },
+
+  handleEdit() {
+    console.log('you are in edit!');
+  },
+
   render() {
     var skills = this.props.skills.map((skill) => {
       return (
